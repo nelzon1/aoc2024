@@ -6,7 +6,7 @@ use std::io::Write;
 
 fn main() -> Result<(), Box<dyn Error>> {
     const DEBUG:bool = false;
-    let file_path = if DEBUG {"debug.txt"} else {"input.txt"};
+    let file_path = if DEBUG {"debug2.txt"} else {"input.txt"};
     let file = File::open(file_path)?;
     let reader = io::BufReader::new(file);
     let mut puzzle:String = String::new();
