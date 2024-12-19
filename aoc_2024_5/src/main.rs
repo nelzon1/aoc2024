@@ -1,6 +1,6 @@
 use std::error::Error;
 use std::fs::File;
-use std::io::{self, BufRead, Read};
+use std::io::{self, Read};
 use regex::Regex;
 
 
@@ -56,7 +56,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let file_path_rule = if DEBUG {"debug_rule.txt"} else {"input_rule.txt"};
     let file_path_report = if DEBUG {"debug_report.txt"} else {"input_report.txt"};
     let file_rule = File::open(file_path_rule)?;
-    let file_report = File::open(file_path_report)?;
     let regex_pattern = r"(\d+)\|(\d+)";
     let regex = Regex::new(regex_pattern)?;
 
@@ -66,7 +65,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     let _ = reader.read_to_string(&mut input);
     let rules = regex.captures_iter( input.split("\n\n").collect::<Vec<&str>>()[0] ).map(|cap| cap.iter().skip(1).flat_map(|x| x.map(|y| y.as_str())).collect::<Vec<&str>>() ).collect::<Vec<Vec<&str>>>();
 
-    reader = io::BufReader::new(file_report);
     let input = std::fs::read_to_string(file_path_report).expect("Failed to read file");
     let mut reports: Vec<Vec<&str>> = Vec::new();
     for line in input.lines() {
@@ -76,9 +74,8 @@ fn main() -> Result<(), Box<dyn Error>> {
 
     println!("There are {} sorted reports", reports.iter().filter(|x| is_report_sorted(x, &rules) > 0 ).count() );
     println!("The sum is {}", reports.iter().map(|x| is_report_sorted(x, &rules) ).sum::<i32>() );
-    println!("There are {} sorted reports", reports.iter().filter(|mut x| is_report_sorted_part_two(  x.to_vec(), &rules) > 0 ).count() );
-    println!("The sum is {}", reports.iter().map(|mut x| is_report_sorted_part_two( x.to_vec(), &rules) ).sum::<i32>() );
-
+    println!("There are {} sorted reports", reports.iter().filter(|x| is_report_sorted_part_two(  x.to_vec(), &rules) > 0 ).count() );
+    println!("The sum is {}", reports.iter().map(|x| is_report_sorted_part_two( x.to_vec(), &rules) ).sum::<i32>() );
 
     Ok(())
 }

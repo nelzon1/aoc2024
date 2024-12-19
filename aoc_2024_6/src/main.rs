@@ -64,11 +64,11 @@ fn part_two_mouse(puzzle: &Vec<Vec<char>>, mut positions: HashSet<(usize,usize,u
         (puzzle_copy, _positions, detect_loop) = part_one_mouse(puzzle_copy, _positions);
         if detect_loop {
             count += 1;
-            // println!("{}", "");
-            // println!("Solution {}", count);
-            // for row in &puzzle_copy{
-            //     println!("{}", row.iter().collect::<String>());
-            //  }
+            println!("{}", "");
+            println!("Solution {}", count);
+            for row in &puzzle_copy{
+                println!("{}", row.iter().collect::<String>());
+             }
         }
         tested_positions.insert((trial_x, trial_y));
     }

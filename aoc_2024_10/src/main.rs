@@ -22,7 +22,6 @@ fn main() -> Result<(), Box<dyn Error>> {
                 let mut routes = 1;
                 (positions, routes) = get_hiking_score((i,j, 0), &puzzle, positions, routes);
                 score += positions.iter().filter(|x| puzzle[x.0][x.1] == 9).count();
-                // rating += calculate_hiking_rating(&positions);
                 rating += routes
             }
         }
@@ -62,13 +61,4 @@ fn get_hiking_score(start: (usize,usize,usize), puzzle: &Vec<Vec<u32>>, mut posi
     if local_routes == 0 && height < 9 {routes -= 1}
 
     return (positions, routes);
-}
-
-fn calculate_hiking_rating(positions: &HashSet<(usize,usize,usize)>) -> u32 {
-    let mut max_distinct = 0;
-    for digit in 0..10{
-        let digit_score = positions.iter().filter(|x| x.2 == digit).count();
-        if digit_score > max_distinct {max_distinct = digit_score;}
-    }
-    return max_distinct as u32;
 }

@@ -42,7 +42,7 @@ fn main() -> Result<(), Box<dyn Error>> {
     // Part 2
     let mut index = disk_pages.len()-1;
     // literate until the disk string is compacted
-    //print_disk(&disk_pages);
+    print_disk(&disk_pages);
     while index > 0 {
         let mut next_file = disk_pages.iter().nth(index).unwrap();
         if let Some(next_block_to_move) = is_space_available(&disk_pages, next_file.1, index - 1) {
