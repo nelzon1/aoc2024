@@ -33,29 +33,11 @@ fn main() -> Result<(), Box<dyn Error>> {
     Ok(())
 }
 
-fn apply_rules(input: u64) -> Vec<u64> {
-    let mut output: Vec<u64> = Vec::new();
-
-    if input == 0 {
-        output.push(1);
-    }
-    else if even_digits(input) {
-        let first = input.to_string().chars().into_iter().take(input.to_string().len()/2).collect::<String>().parse::<u64>().unwrap();
-        let last = input.to_string().chars().into_iter().rev().take(input.to_string().len()/2).collect::<String>().chars().into_iter().rev().collect::<String>().parse::<u64>().unwrap();
-        output.push(first);
-        output.push(last);
-    }
-    else{
-        output.push(input * 2024);
-    }
-    return output;
-}
-
 fn even_digits(input:u64) -> bool {
     return input.to_string().chars().count() % 2 == 0;
 }
 
-fn score_number(input: u64, blinks: u32, curblinks:u32, mut curscore:u64, cache: &mut HashMap<(u64,u32),u64>) -> u64 {
+fn score_number(input: u64, blinks: u32, curblinks:u32, curscore:u64, cache: &mut HashMap<(u64,u32),u64>) -> u64 {
     if cache.contains_key(&(input,curblinks)) {
         return *cache.get(&(input,curblinks)).unwrap();
     }
