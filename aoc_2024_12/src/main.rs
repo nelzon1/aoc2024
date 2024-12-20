@@ -59,7 +59,7 @@ fn fence_region(x:usize, y:usize, puzzle: &mut Vec<Vec<char>>, start_character: 
 }
 
 fn main() -> Result<(), Box<dyn Error>> {
-    const DEBUG:bool = false;
+    const DEBUG:bool = true;
     let file_path = if DEBUG {"debug.txt"} else {"input.txt"};
     let file = File::open(file_path)?;
     let reader = io::BufReader::new(file);
