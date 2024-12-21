@@ -1,9 +1,6 @@
-use std::env::var;
 use std::error::Error;
 use std::fs::File;
-use std::time::Duration;
 use std::io::{self, BufRead};
-use std::thread::sleep;
 fn main() -> Result<(), Box<dyn Error>> {
     const DEBUG:bool = false;
     let file_path = if DEBUG {"debug.txt"} else {"input.txt"};
@@ -38,7 +35,7 @@ fn main() -> Result<(), Box<dyn Error>> {
             move_robot(robot, 1, x_len, y_len);
         }   
         let (var_x,var_y) = variance(&robots);
-        if (var_x + var_y < lowest_var) {
+        if var_x + var_y < lowest_var {
             print_display(&robots, x_len, y_len);
             println!("Count: {} Variance: ({},{})", count, var_x, var_y);
             lowest_var = var_x + var_y
@@ -77,9 +74,9 @@ fn safety_score(robots: &Vec<Vec<(i32,i32)>>, x_len:i32, y_len:i32) -> u64 {
 
 fn print_display(robots: &Vec<Vec<(i32,i32)>>, x_len:i32, y_len:i32) {
     let mut puzzle:Vec<Vec<char>> = Vec::new();
-    for i in 0..y_len {
+    for _i in 0..y_len {
         let mut row = Vec::new();
-        for j in 0..x_len{
+        for _j in 0..x_len{
             row.push(' ');
         }
         puzzle.push(row);
